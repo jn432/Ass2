@@ -6,6 +6,7 @@ class Student extends User implements Serializable {
     
     private String degree;
     
+    //constructor
     public Student(String username, char[] password, String degree) {
         super(username, password);
         this.degree = degree;
@@ -13,6 +14,10 @@ class Student extends User implements Serializable {
     
     public String getDegree() {
         return degree;
+    }
+    
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
     
     public int getUserType() {

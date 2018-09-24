@@ -34,6 +34,16 @@ abstract class User implements Serializable {
     }
     //end of get methods
     
+    //set methods
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public void setPassword(char[] password) {
+        this.password = password;
+    }
+    //end of set methods
+    
     //abstract methods that child classes must have
     abstract public int getUserType();
     
