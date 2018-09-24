@@ -20,11 +20,9 @@ public class WindowAdmin extends JFrame {
         this.add(backPane);
         
         //create the tabs
-        TabCreateStudent tabStudent = new TabCreateStudent();
-        TabCreateLibrarian tabLibrarian = new TabCreateLibrarian();
-        backPane.addTab("Find user", new TabSearchUser(backPane, tabStudent, tabLibrarian));
-        backPane.addTab("Create/Edit Student", tabStudent);
-        backPane.addTab("Create/Edit Librarian", tabLibrarian);
+        TabCreate tabStudent = new TabCreate();
+       // backPane.addTab("Find user", new TabSearchUser(backPane, tabEditUser));
+        backPane.addTab("Create User", tabStudent);
     }
     
 }

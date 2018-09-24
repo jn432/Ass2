@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Arrays;
 
-class TabCreateStudent extends JPanel {
+class TabCreate extends JPanel {
     
     private JTextArea output;
     private int choice = 1;
@@ -21,11 +21,7 @@ class TabCreateStudent extends JPanel {
         boxDegree.setSelectedItem(s.getDegree());
     }
     
-    private boolean editStudent() {
-        return false;
-    }
-    
-    private boolean createStudent() {
+    private boolean createUser() {
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
         String degree = boxDegree.getSelectedItem().toString();
@@ -43,15 +39,26 @@ class TabCreateStudent extends JPanel {
         }
         else {
             //create user account and add it to user file
-            User u = new Student(username, password, degree);
-            output.setText("Student " + username + " has been created.");
-            Ass2.LIB.getUserList().add(u);
-            Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+            User u;
+            switch(choice) {
+                case 1:
+                    u = new Student(username, password, degree);
+                    output.setText("Student " + username + " has been created.");
+                    Ass2.LIB.getUserList().add(u);
+                    Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+                    break;
+                case 2:
+                    u = new Librarian(username, password);
+                    output.setText("Librarian " + username + " has been created.");
+                    Ass2.LIB.getUserList().add(u);
+                    Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+                    break;
+            }
             return true;
         }
     }
     
-    public TabCreateStudent() {
+    public TabCreate() {
         super();
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
@@ -93,18 +100,11 @@ class TabCreateStudent extends JPanel {
         this.add(output);
         
         //create button for create/delete
-        JButton buttonRun = new JButton("Edit/Delete User");
+        JButton buttonRun = new JButton("Create Student");
         buttonRun.setFont(tabFont);
         buttonRun.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                switch(choice) {
-                    case 1:
-                        //edit the student
-                        break;
-                    case 2:
-                        createStudent();
-                        break;
-                }
+                createUser();
             }
         });
         this.add(buttonRun);
@@ -113,22 +113,22 @@ class TabCreateStudent extends JPanel {
         ButtonGroup radioGroup = new ButtonGroup();
         
         //radiobutton for create
-        JRadioButton radioCreate = new JRadioButton("Edit/Delete", true);
+        JRadioButton radioCreate = new JRadioButton("Student", true);
         radioCreate.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 choice = 1;
-                buttonRun.setText("Edit User");
+                buttonRun.setText("Create Student");
             }
         });
         this.add(radioCreate);
         radioGroup.add(radioCreate);
         
         //radiobutton for edit/delete
-        JRadioButton radioEditDelete = new JRadioButton("Create", false);
+        JRadioButton radioEditDelete = new JRadioButton("Librarian", false);
         radioEditDelete.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 choice = 2;
-                buttonRun.setText("Create User");
+                buttonRun.setText("Create Librarian");
             }
         });
         this.add(radioEditDelete);
