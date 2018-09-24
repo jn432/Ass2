@@ -9,20 +9,21 @@ class TabSearchUser extends JPanel {
     private JTextArea output;
     
     private JTabbedPane backPane;
-    private TabCreate tabCreate;
+    private TabEditUser tabEdit;
     
+    //searches for user and switches to the edit tab if one is found, also sets the details on it
     private void searchUser(String search) {
         User u = Ass2.LIB.findUser(search);
         if (u != null) {
             switch(u.getUserType()) {
                 case 1:
                     backPane.setSelectedIndex(2);
-                    //tabEdit.setDetails((Student) u);
+                    tabEdit.setDetails(u);
                     output.setText(u.getDetails());
                     break;
                 case 2:
                     backPane.setSelectedIndex(2);
-                    //tabEdit.setDetails((Librarian) u);
+                    tabEdit.setDetails(u);
                     output.setText(u.getDetails());
                     break;
                 case 3:
@@ -36,10 +37,10 @@ class TabSearchUser extends JPanel {
         }
     }
     
-    public TabSearchUser(JTabbedPane backPane, TabCreate tabStudent) {
+    public TabSearchUser(JTabbedPane backPane, TabEditUser tabEdit) {
         super();
         this.backPane = backPane;
-        //this.tabCreate = tabCr;
+        this.tabEdit = tabEdit;
         
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
