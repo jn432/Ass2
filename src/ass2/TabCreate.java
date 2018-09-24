@@ -42,16 +42,20 @@ class TabCreate extends JPanel {
             User u;
             switch(choice) {
                 case 1:
-                    u = new Student(username, password, degree);
-                    output.setText("Student " + username + " has been created.");
-                    Ass2.LIB.getUserList().add(u);
-                    Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+                    if (Admin.createStudent(username, password, degree)) {
+                        output.setText("Student " + username + " has been created.");
+                    }
+                    else {
+                        output.setText("Username has already been taken");
+                    }
                     break;
                 case 2:
-                    u = new Librarian(username, password);
-                    output.setText("Librarian " + username + " has been created.");
-                    Ass2.LIB.getUserList().add(u);
-                    Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+                    if (Admin.createLibrarian(username, password)) {
+                        output.setText("Librarian " + username + " has been created.");
+                    }
+                    else {
+                        output.setText("Username has already been taken");
+                    }
                     break;
             }
             return true;
@@ -112,27 +116,31 @@ class TabCreate extends JPanel {
         //create radio button group
         ButtonGroup radioGroup = new ButtonGroup();
         
-        //radiobutton for create
-        JRadioButton radioCreate = new JRadioButton("Student", true);
-        radioCreate.addItemListener(new ItemListener() {
+        //radiobutton for selecting student
+        JRadioButton radioStudent = new JRadioButton("Student", true);
+        radioStudent.addItemListener(new ItemListener() {
+            //change the choice, button and enable the combo box
             public void itemStateChanged(ItemEvent evt) {
                 choice = 1;
                 buttonRun.setText("Create Student");
+                boxDegree.setEnabled(true);
             }
         });
-        this.add(radioCreate);
-        radioGroup.add(radioCreate);
+        this.add(radioStudent);
+        radioGroup.add(radioStudent);
         
-        //radiobutton for edit/delete
-        JRadioButton radioEditDelete = new JRadioButton("Librarian", false);
-        radioEditDelete.addItemListener(new ItemListener() {
+        //radiobutton for selecting librarian
+        JRadioButton radioLibrarian = new JRadioButton("Librarian", false);
+        radioLibrarian.addItemListener(new ItemListener() {
+            //change the choice, button and disable the combo box
             public void itemStateChanged(ItemEvent evt) {
                 choice = 2;
                 buttonRun.setText("Create Librarian");
+                boxDegree.setEnabled(false);
             }
         });
-        this.add(radioEditDelete);
-        radioGroup.add(radioEditDelete);
+        this.add(radioLibrarian);
+        radioGroup.add(radioLibrarian);
         
         
         GroupLayout layout = new GroupLayout(this);
@@ -142,10 +150,10 @@ class TabCreate extends JPanel {
                 .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(radioCreate)
+                                        .addComponent(radioStudent)
                                 )
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(radioEditDelete)
+                                        .addComponent(radioLibrarian)
                                 )
                         )
                         .addComponent(labelNewUser)
@@ -163,8 +171,8 @@ class TabCreate extends JPanel {
         
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(radioCreate)
-                        .addComponent(radioEditDelete)
+                        .addComponent(radioStudent)
+                        .addComponent(radioLibrarian)
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(labelNewUser)
