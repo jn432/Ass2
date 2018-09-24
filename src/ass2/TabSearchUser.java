@@ -18,11 +18,13 @@ class TabSearchUser extends JPanel {
             switch(u.getUserType()) {
                 case 1:
                     backPane.setSelectedIndex(2);
+                    backPane.setEnabledAt(2, true);
                     tabEdit.setDetails(u);
                     output.setText(u.getDetails());
                     break;
                 case 2:
                     backPane.setSelectedIndex(2);
+                    backPane.setEnabledAt(2, true);
                     tabEdit.setDetails(u);
                     output.setText(u.getDetails());
                     break;
