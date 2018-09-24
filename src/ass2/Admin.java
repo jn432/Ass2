@@ -31,6 +31,7 @@ class Admin extends User implements Serializable {
             Student s = (Student) u;
             s.setDegree(degree);
         }
+        Ass2.LIB.saveFile(Ass2.LIB.getUserList());
         System.err.println("User edited");
         return true;
     }
