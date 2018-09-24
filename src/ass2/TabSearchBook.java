@@ -8,7 +8,7 @@ class TabSearchBook extends JPanel {
     
     private JTextArea output;
     private int choice = 1;
-    TabReserve reserveTab;
+    TabReserveBook reserveTab;
     
     private void searchBook(String search) {
         switch (choice) {
@@ -35,7 +35,7 @@ class TabSearchBook extends JPanel {
             
     }
     
-    public TabSearchBook(TabReserve tab) {
+    public TabSearchBook(TabReserveBook tab) {
         super();
         reserveTab = tab;
         //create text font on the tab
