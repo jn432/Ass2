@@ -25,6 +25,7 @@ public class WindowAdmin extends JFrame {
         backPane.addTab("Find", new TabSearchUser(backPane, tabEdit));
         backPane.addTab("Create", tabCreate);
         backPane.addTab("Edit", tabEdit);
+        backPane.setEnabledAt(2, false);
     }
     
 }
