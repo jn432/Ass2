@@ -100,7 +100,7 @@ class TabEditUser extends JPanel {
         this.add(output);
         
         //create button for create/delete
-        JButton buttonEdit = new JButton("Create Student");
+        JButton buttonEdit = new JButton("Edit User");
         buttonEdit.setFont(tabFont);
         buttonEdit.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
