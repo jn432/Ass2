@@ -14,7 +14,7 @@ class Admin extends User implements Serializable {
     }
     
     public String getDetails() {
-        return "Username: " + username + "\nPassword: " + password + "\n";
+        return "\nAccount ID: " + id + "\nUsername: " + username + "\nPassword: " + password + "\n";
     }
     
     public static boolean createStudent(String username, char[] password, String degree) {
