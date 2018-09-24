@@ -10,8 +10,10 @@ class TabSearchUser extends JPanel {
     
     private JTabbedPane backPane;
     private TabEditUser tabEdit;
+    private TabDeleteUser tabDelete;
     
     //searches for user and switches to the edit tab if one is found, also sets the details on it
+    //also enable usage of edit and delete tab
     private void searchUser(String search) {
         User u = Ass2.LIB.findUser(search);
         if (u != null) {
@@ -19,13 +21,17 @@ class TabSearchUser extends JPanel {
                 case 1:
                     backPane.setSelectedIndex(2);
                     backPane.setEnabledAt(2, true);
+                    backPane.setEnabledAt(3, true);
                     tabEdit.setDetails(u);
+                    tabDelete.setDetails(u);
                     output.setText(u.getDetails());
                     break;
                 case 2:
                     backPane.setSelectedIndex(2);
                     backPane.setEnabledAt(2, true);
+                    backPane.setEnabledAt(3, true);
                     tabEdit.setDetails(u);
+                    tabDelete.setDetails(u);
                     output.setText(u.getDetails());
                     break;
                 case 3:
@@ -39,10 +45,11 @@ class TabSearchUser extends JPanel {
         }
     }
     
-    public TabSearchUser(JTabbedPane backPane, TabEditUser tabEdit) {
+    public TabSearchUser(JTabbedPane backPane, TabEditUser tabEdit, TabDeleteUser tabDelete) {
         super();
         this.backPane = backPane;
         this.tabEdit = tabEdit;
+        this.tabDelete = tabDelete;
         
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);

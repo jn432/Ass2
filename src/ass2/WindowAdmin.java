@@ -22,10 +22,17 @@ public class WindowAdmin extends JFrame {
         //create the tabs
         TabCreateUser tabCreate = new TabCreateUser();
         TabEditUser tabEdit = new TabEditUser();
-        backPane.addTab("Find", new TabSearchUser(backPane, tabEdit));
+        TabDeleteUser tabDelete = new TabDeleteUser();
+        
+        //add tabs
+        backPane.addTab("Find", new TabSearchUser(backPane, tabEdit, tabDelete));
         backPane.addTab("Create", tabCreate);
         backPane.addTab("Edit", tabEdit);
+        backPane.addTab("Delete", tabDelete);
+        
+        //disable the edit and delete tabs initially
         backPane.setEnabledAt(2, false);
+        backPane.setEnabledAt(3, false);
     }
     
 }
