@@ -18,10 +18,19 @@ class TabDeleteUser extends JPanel {
         output.append(u.getDetails());
     }
     
+    
+    //deleted the searched user
     private void deleteUser() {
-        //Admin.deleteUser(deletedUser);
+        if (deletedUser != null) {
+            Admin.deleteUser(deletedUser);
+            output.setText("User has been deleted");
+        }
+        else {
+            output.setText("Please search for a user");
+        }
     }
     
+    //constructor, sets up the tab
     public TabDeleteUser() {
         super();
         //create text font on the tab

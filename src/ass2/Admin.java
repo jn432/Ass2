@@ -17,6 +17,14 @@ class Admin extends User implements Serializable {
         return "\nAccount ID: " + id + "\nUsername: " + username + "\nPassword: " + password + "\n";
     }
     
+    //deletes the user from the list, and also saves the changed list
+    public static void deleteUser(User u) {
+        Ass2.LIB.getUserList().remove(u);
+        System.err.println("User deleted");
+        Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+    }
+    
+    //changes attributes for a user, and saves the updates
     public static boolean editUser(User u, String username, char[] password, String degree) {
         User checkDuplicate = Ass2.LIB.findUser(username);
         //if username is already used by an account and is not the same user
@@ -36,6 +44,7 @@ class Admin extends User implements Serializable {
         return true;
     }
     
+    //create a new student and add it to the list
     public static boolean createStudent(String username, char[] password, String degree) {
         User u = Ass2.LIB.findUser(username);
         if (u == null) {
@@ -49,6 +58,8 @@ class Admin extends User implements Serializable {
         return false;
     }
     
+    
+    //create a librarian and add it to the list
     public static boolean createLibrarian(String username, char[] password) {
         User u = Ass2.LIB.findUser(username);
         if (u == null) {
