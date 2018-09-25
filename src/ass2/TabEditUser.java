@@ -19,7 +19,7 @@ class TabEditUser extends JPanel {
     //used to set details in tab after a user is searched for
     public void setDetails(User u) {
         editedUser = u;
-        fieldID.setText(Integer.toString(u.getID()));
+        fieldID.setText(Integer.toString(Ass2.LIB.getUserList().indexOf(u)));
         fieldUsername.setText(u.getUsername());
         fieldPassword.setText(Arrays.toString(u.getPassword()));
         //if user is a student
@@ -36,15 +36,26 @@ class TabEditUser extends JPanel {
     }
     
     
-    private void editUser() {
-        boolean check = Admin.editUser(editedUser, fieldUsername.getText(), fieldPassword.getPassword(), boxDegree.getSelectedItem().toString());
-        if (check) {
-            output.setText("User has been edited:");
-            output.append(editedUser.getDetails());
+    private boolean editUser() {
+        String username = fieldUsername.getText();
+        char[] password = fieldPassword.getPassword();
+        String degree = boxDegree.getSelectedItem().toString();
+        if (username.equals("")) {
+            output.setText("Username cannot be empty");
+            return false;
         }
-        else {
-            output.setText("Error in editing file");
+        else if (Arrays.toString(password).equals("")) {
+            output.setText("Password cannot be empty");
+            return false;
         }
+        else if (Ass2.LIB.findUser(username) != null) {
+            output.setText("Username has already been taken");
+            return false;
+        }
+        Admin.editUser(editedUser, username, password, degree);
+        output.setText("User has been edited:");
+        output.append(editedUser.getDetails());
+        return true;
     }
     
     public TabEditUser() {

@@ -15,7 +15,7 @@ class Librarian extends User implements Serializable {
     }
     
     public String getDetails() {
-        return "\nAccount ID: " + id + "\nUsername: " + username + "\nPassword: " + password + "\n";
+        return "\nUsername: " + username + "\nPassword: " + password + "\n";
     }
     
     public static void checkOutBook(Student s, int ISBN) {

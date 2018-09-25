@@ -25,7 +25,7 @@ class Student extends User implements Serializable {
     }
     
     public String getDetails() {
-        return "\nAccount ID: " + id + "\nUsername: " + username + "\nPassword: " + password + "\nDegree: " + degree + "\n";
+        return "\nUsername: " + username + "\nPassword: " + password + "\nDegree: " + degree + "\n";
     }
     
 

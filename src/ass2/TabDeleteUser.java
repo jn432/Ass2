@@ -24,6 +24,7 @@ class TabDeleteUser extends JPanel {
         if (deletedUser != null) {
             Admin.deleteUser(deletedUser);
             output.setText("User has been deleted");
+            deletedUser = null;
         }
         else {
             output.setText("Please search for a user");

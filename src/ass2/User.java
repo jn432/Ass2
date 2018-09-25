@@ -5,26 +5,18 @@ import java.util.Arrays;
 
 abstract class User implements Serializable {
     
-    //id is used purely to keep track for administration purposes
-    private static int counter = 1;
-    protected int id;
     
     protected String username;
     protected char[] password;
     
     //constructor
     public User(String username, char[] password) {
-        id = counter++;
         this.username = username;
         this.password = password;
     }
     
     
     //get methods
-    public int getID() {
-        return id;
-    }
-    
     public String getUsername() {
         return username;
     }
