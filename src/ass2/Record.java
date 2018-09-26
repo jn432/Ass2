@@ -2,6 +2,7 @@ package ass2;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 class Record implements Serializable, Comparable<Record> {
     private User reserver;
@@ -14,7 +15,11 @@ class Record implements Serializable, Comparable<Record> {
     }
     
     public String printRecord() {
-        return "User: " + reserver + "\nDate reserved: " + date.getDayOfWeek() + "/" + date.getDayOfMonth() + "/" + date.getDayOfYear() + "\n";
+        //format the date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = date.format(formatter);
+        //return the string
+        return "User: " + reserver.getUsername() + "\nDate reserved: " + formatDateTime + "\n";
     }
     
     public int compareTo(Record r) {

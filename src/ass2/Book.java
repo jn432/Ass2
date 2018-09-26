@@ -62,7 +62,9 @@ public class Book implements Serializable {
     }
     
     public void reserveBook(Student student) {
-        status = "Reserved";
+        if (status.equals("Available")) {
+            status = "Reserved";
+        }
         Record r = new Record(student);
         reserveList.add(r);
         Collections.sort(reserveList);

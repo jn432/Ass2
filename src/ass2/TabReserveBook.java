@@ -9,21 +9,23 @@ class TabReserveBook extends JPanel {
     private Student student;
     private JTextField fieldISBN;
     private JTextArea output;
-    private Book b;
     
-    
+    //display information on the output, and set the field to the found book
     public void setDetails(Book b) {
-        this.b = b;
         b.printDetails(output);
         fieldISBN.setText(Integer.toString(b.getISBN()));
     }
     
+    //reserves the book if available, add to queue if borrowed or reserved
     private void reserveBook() {
         try {
             int ISBN = Integer.parseInt(fieldISBN.getText());
             Book b = Ass2.LIB.findBook(ISBN);
             if (b.getReservedStatus().equals("Reserved")) {
                 output.setText("Book has been previously reserved. You will be added to a queue.\n ");
+            }
+            else if (b.getReservedStatus().equals("Borrowed")) {
+                output.setText("Book has been borrowed. You will be added to a queue.\n ");
             }
             else {
                 output.setText("Book has been reserved\n");
