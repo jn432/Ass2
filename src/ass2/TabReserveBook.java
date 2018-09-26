@@ -9,9 +9,13 @@ class TabReserveBook extends JPanel {
     private Student student;
     private JTextField fieldISBN;
     private JTextArea output;
+    private Book b;
     
-    public void setISBN(int ISBN) {
-        fieldISBN.setText(Integer.toString(ISBN));
+    
+    public void setDetails(Book b) {
+        this.b = b;
+        b.printDetails(output);
+        fieldISBN.setText(Integer.toString(b.getISBN()));
     }
     
     private void reserveBook() {

@@ -8,7 +8,8 @@ class TabSearchBook extends JPanel {
     
     private JTextArea output;
     private int choice = 1;
-    TabReserveBook reserveTab;
+    JTabbedPane backPane;
+    TabReserveBook tabReserveBook;
     
     private void searchBook(String search) {
         switch (choice) {
@@ -18,7 +19,8 @@ class TabSearchBook extends JPanel {
                     int ISBN = Integer.parseInt(search);
                     Book b = Ass2.LIB.findBook(ISBN);
                     b.printDetails(output);
-                    reserveTab.setISBN(ISBN);
+                    backPane.setSelectedIndex(1);
+                    tabReserveBook.setDetails(b);
                 }
                 catch (NumberFormatException e) {
                     output.setText("You must enter an int to search by ISBN");
@@ -35,9 +37,10 @@ class TabSearchBook extends JPanel {
             
     }
     
-    public TabSearchBook(TabReserveBook tab) {
+    public TabSearchBook(JTabbedPane backPane, TabReserveBook tabReserveBook) {
         super();
-        reserveTab = tab;
+        this.backPane = backPane;
+        this.tabReserveBook = tabReserveBook;
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         
