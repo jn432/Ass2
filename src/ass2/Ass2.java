@@ -35,12 +35,7 @@ public class Ass2 {
         }
         
         //books
-        ArrayList<String> keyword = new ArrayList<>();
-        keyword.add("Computing");
-        keyword.add("C#");
-        keyword.add("Apple");
-        keyword.add("Windows");
-        l.createBook(1, "Programming for idiots", "Sifer, Mark", keyword, "Level 1");
+        l.createBook(1, "Programming for idiots", "Sifer, Mark", "Level 1");
         //end of dummy data
 
         new WindowLogin(lib).setVisible(true);

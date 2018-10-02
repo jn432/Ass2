@@ -24,14 +24,14 @@ class Librarian extends User implements Serializable {
         b.borrowBook(s);
     }
     
-    public Book createBook(int ISBN, String title, String author, ArrayList<String> keyword, String location) {
+    public Book createBook(int ISBN, String title, String author, String location) {
         //look for a book with that ISBN
         Book b = LIBRARY.findBook(ISBN);
         
         //if there is no book with that ISBN
         if (b == null) {
             //create the book and put it in the map
-            b = new Book(ISBN, title, author, keyword, location);
+            b = new Book(ISBN, title, author, location);
             LIBRARY.getBooks().put(ISBN, b);
             
             //save the library file

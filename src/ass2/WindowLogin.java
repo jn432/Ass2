@@ -26,7 +26,7 @@ class WindowLogin extends JFrame {
 
                     //user is a librarian
                     case 2:
-                        //new WindowLibrarian((Librarian) u).setVisible(true);
+                        new WindowLibrarian((Librarian) u, LIBRARY).setVisible(true);
                         this.dispose();
                         break;
 
