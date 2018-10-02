@@ -6,6 +6,8 @@ import java.awt.event.*;
 
 class TabDeleteUser extends JPanel {
     
+    private final Admin ADMIN;
+    
     private JTextArea output;
     
     private User deletedUser;
@@ -22,7 +24,7 @@ class TabDeleteUser extends JPanel {
     //deleted the searched user
     private void deleteUser() {
         if (deletedUser != null) {
-            Admin.deleteUser(deletedUser);
+            ADMIN.deleteUser(deletedUser);
             output.setText("User has been deleted");
             deletedUser = null;
         }
@@ -32,8 +34,9 @@ class TabDeleteUser extends JPanel {
     }
     
     //constructor, sets up the tab
-    public TabDeleteUser() {
+    public TabDeleteUser(Admin admin) {
         super();
+        this.ADMIN = admin;
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         

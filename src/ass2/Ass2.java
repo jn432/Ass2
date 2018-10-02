@@ -2,39 +2,47 @@ package ass2;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Ass2 {
     
-    public static Library LIB;
+    private static final String LIBRARYFILE = "library.ser";
     
     public static void main(String[] args) {
         
-        //create the library to be used, and also set the 3 output file paths
-        LIB = new Library("books.ser", "users.ser", "records.ser");
+        //load the library to be used. will create a new library if it doesn't exist
+        Library lib = Library.loadLibrary(LIBRARYFILE);
         
         //dummy data
         
-        //user accounts
-        Admin.createStudent("student","pass".toCharArray(),"Computer Science");
-        Admin.createLibrarian("librarian","pass".toCharArray());
+        //grab the admin account
+        Admin admin = (Admin) lib.findUser("admin");
         
-        //if there is no admin account, create it and save
-        if (LIB.findUser("admin") == null) {
-            Admin admin = new Admin("admin","pass".toCharArray());
-            LIB.getUserList().add(admin);
-            LIB.saveFile(LIB.getUserList());
+        //if there is no admin account, create it for the library and save
+        if (admin == null) {
+            admin = new Admin("admin","pass".toCharArray(), lib);
+            lib.getUsers().put(admin.getUsername(), admin);
+            lib.saveLibrary();
+        }
+        
+        //try to create student accounts
+        Student s = admin.createStudent("student","pass".toCharArray(),"Computer Science");
+        
+        //try to create librarian accounts
+        Librarian l = (Librarian) lib.findUser("librarian");
+        
+        if (l == null) {
+            l = admin.createLibrarian("librarian","pass".toCharArray());
         }
         
         //books
-        ArrayList<String> keyword = new ArrayList<String>();
+        ArrayList<String> keyword = new ArrayList<>();
         keyword.add("Computing");
         keyword.add("C#");
         keyword.add("Apple");
         keyword.add("Windows");
-        Librarian.createBook(1, "Programming for idiots", "Sifer, Mark", keyword, "Level 1");
+        l.createBook(1, "Programming for idiots", "Sifer, Mark", keyword, "Level 1");
         //end of dummy data
 
-        new WindowLogin().setVisible(true);
+        new WindowLogin(lib).setVisible(true);
     }
 }

@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class WindowStudent extends JFrame {
     
-    public WindowStudent(Student student) {
+    public WindowStudent(Student student, Library lib) {
         super("Student window");
         //setting the frame
         this.setBounds(0,0,640, 480);
@@ -21,8 +21,8 @@ public class WindowStudent extends JFrame {
         this.add(backPane);
         
         //create the tabs
-        TabReserveBook tabReserveBook = new TabReserveBook(student);
-        backPane.addTab("Search", new TabSearchBook(backPane, tabReserveBook));
+        TabReserveBook tabReserveBook = new TabReserveBook(student, lib);
+        backPane.addTab("Search", new TabSearchBook(backPane, tabReserveBook, lib));
         backPane.addTab("Reserve", tabReserveBook);
     }
     

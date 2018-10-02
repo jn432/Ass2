@@ -1,11 +1,12 @@
 package ass2;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 class Admin extends User implements Serializable {
     
-    public Admin(String username, char[] password) {
-        super(username, password);
+    public Admin(String username, char[] password, Library library) {
+        super(username, password, library);
         System.err.println("Admin created");
     }
     
@@ -13,63 +14,84 @@ class Admin extends User implements Serializable {
         return 3;
     }
     
-    public String getDetails() {
-        return "\nUsername: " + username + "\nPassword: " + password + "\n";
+    protected String getDetails() {
+        return "\nUsername: " + username + "\nPassword: " + Arrays.toString(password) + "\n";
     }
     
     //deletes the user from the list, and also saves the changed list
-    public static void deleteUser(User u) {
-        Ass2.LIB.getUserList().remove(u);
+    public void deleteUser(User u) {
+        LIBRARY.getUsers().remove(u.username);
         System.err.println("User deleted");
-        Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+        LIBRARY.saveLibrary();
     }
     
     //changes attributes for a user, and saves the updates
-    public static boolean editUser(User u, String username, char[] password, String degree) {
-        User checkDuplicate = Ass2.LIB.findUser(username);
+    public boolean editUser(User u, String username, char[] password, String degree) {
+        //find a user with the username
+        User checkDuplicate = LIBRARY.findUser(username);
         //if username is already used by an account and is not the same user
         if (checkDuplicate != null && u != checkDuplicate) {
             System.err.println("User not edited");
             return false;
         }
+        
+        //edit details of user
         u.username = username;
         u.password = password;
-        //if user is a student
+        //if user is a student, then also change degree
         if (u.getUserType() == 1) {
             Student s = (Student) u;
             s.setDegree(degree);
         }
-        Ass2.LIB.saveFile(Ass2.LIB.getUserList());
+        
+        //save the file
+        LIBRARY.saveLibrary();
         System.err.println("User edited");
         return true;
     }
     
     //create a new student and add it to the list
-    public static boolean createStudent(String username, char[] password, String degree) {
-        User u = Ass2.LIB.findUser(username);
+    public Student createStudent(String username, char[] password, String degree) {
+        //find a user with the same username
+        User u = LIBRARY.findUser(username);
+        
+        //if username is not used
         if (u == null) {
-            Student s = new Student(username, password, degree);
+            //create a student with the input details
+            Student s = new Student(username, password, degree, LIBRARY);
             System.err.println("Student created");
-            Ass2.LIB.getUserList().add(s);
-            Ass2.LIB.saveFile(Ass2.LIB.getUserList());
-            return true;
+            
+            //and save the file
+            LIBRARY.getUsers().put(username, s);
+            LIBRARY.saveLibrary();
+            return s;
         }
+        
+        //a user with the same username was found
         System.err.println("Student not created");
-        return false;
+        return null;
     }
     
     
     //create a librarian and add it to the list
-    public static boolean createLibrarian(String username, char[] password) {
-        User u = Ass2.LIB.findUser(username);
+    public Librarian createLibrarian(String username, char[] password) {
+        //find a user with the same username
+        User u = LIBRARY.findUser(username);
+        
+        //if username is not used
         if (u == null) {
-            Librarian l = new Librarian(username, password);
+            //create a librarian with the input details
+            Librarian l = new Librarian(username, password, LIBRARY);
             System.err.println("Librarian created");
-            Ass2.LIB.getUserList().add(l);
-            Ass2.LIB.saveFile(Ass2.LIB.getUserList());
-            return true;
+            
+            //and save the file
+            LIBRARY.getUsers().put(username, l);
+            LIBRARY.saveLibrary();
+            return l;
         }
+        
+        //a user with the same username was found
         System.err.println("Librarian not created");
-        return false;
+        return null;
     }
 }

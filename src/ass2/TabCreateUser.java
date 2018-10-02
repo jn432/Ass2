@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 class TabCreateUser extends JPanel {
     
+    private final Admin ADMIN;
+    private final Library LIBRARY;
+    
     private int choice = 1;
     
     //set it this way to call their data easier
@@ -21,47 +24,43 @@ class TabCreateUser extends JPanel {
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
         String degree = boxDegree.getSelectedItem().toString();
+        
+        //check if username string is empty
         if (username.equals("")) {
             output.setText("Username cannot be empty");
             return false;
         }
+        //check if password string is empty
         else if (Arrays.toString(password).equals("")) {
             output.setText("Password cannot be empty");
             return false;
         }
-        else if (Ass2.LIB.findUser(username) != null) {
+        //check if username has been taken
+        else if (LIBRARY.findUser(username) != null) {
             output.setText("Username has already been taken");
             return false;
         }
         else {
-            //create user account and add it to user file
-            User u;
+            //create user account and add it to user map
+            User u = LIBRARY.findUser(username);
             switch(choice) {
                 case 1:
-                    if (Admin.createStudent(username, password, degree)) {
-                        output.setText("Student " + username + " has been created.");
-                        return true;
-                    }
-                    else {
-                        output.setText("Username has already been taken");
-                        return false;
-                    }
+                    ADMIN.createStudent(username, password, degree);
+                    output.setText("Student " + username + " has been created.");
+                    return true;
                 case 2:
-                    if (Admin.createLibrarian(username, password)) {
-                        output.setText("Librarian " + username + " has been created.");
-                        return true;
-                    }
-                    else {
-                        output.setText("Username has already been taken");
-                        return false;
-                    }
+                    ADMIN.createLibrarian(username, password);
+                    output.setText("Librarian " + username + " has been created.");
+                    return true;
             }
             return false;
         }
     }
     
-    public TabCreateUser() {
+    public TabCreateUser(Admin admin, Library lib) {
         super();
+        this.ADMIN = admin;
+        this.LIBRARY = lib;
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         

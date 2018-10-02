@@ -6,31 +6,38 @@ import java.awt.event.*;
 
 class WindowLogin extends JFrame {
     
+    private final Library LIBRARY;
+    
     private void attemptLogin(String username, char[] password, JLabel output) {
         //look for a User with this username
-        User u = Ass2.LIB.findUser(username);
+        User u = LIBRARY.findUser(username);
         
         //if a user is found and the password is correct
-        if (u != null && User.verifyUser(u, password)) {
-            switch (u.getUserType()) {
-                //user is a student
-                case 1:
-                    new WindowStudent((Student) u).setVisible(true);
-                    this.dispose();
-                    break;
-                
-                //user is a librarian
-                case 2:
-                    //new WindowLibrarian((Librarian) u).setVisible(true);
-                    this.dispose();
-                    break;
-                
-                //user is an admin
-                case 3:
-                    new WindowAdmin((Admin) u).setVisible(true);
-                    this.dispose();
-                    break;
+        if (u != null) {
+            
+            //and the password is correct
+            if (u.verifyUser(password)) {
+                switch (u.getUserType()) {
+                    //user is a student
+                    case 1:
+                        new WindowStudent((Student) u, LIBRARY).setVisible(true);
+                        this.dispose();
+                        break;
+
+                    //user is a librarian
+                    case 2:
+                        //new WindowLibrarian((Librarian) u).setVisible(true);
+                        this.dispose();
+                        break;
+
+                    //user is an admin
+                    case 3:
+                        new WindowAdmin((Admin) u, LIBRARY).setVisible(true);
+                        this.dispose();
+                        break;
+                }
             }
+            
         }
         //user not found or password is incorrect
         else {
@@ -38,11 +45,14 @@ class WindowLogin extends JFrame {
         }
     }
 
-    public WindowLogin() {
+    public WindowLogin(Library lib) {
         //create the frame
         super("Library system");
         this.setBounds(0,0,640, 480);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        //set the library
+        LIBRARY = lib;
         
         //create the login panel
         JPanel loginPanel = new JPanel();

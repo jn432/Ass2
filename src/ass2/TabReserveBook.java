@@ -7,6 +7,8 @@ import java.awt.event.*;
 class TabReserveBook extends JPanel {
     
     private Student student;
+    private final Library LIBRARY;
+    
     private JTextField fieldISBN;
     private JTextArea output;
     
@@ -20,7 +22,7 @@ class TabReserveBook extends JPanel {
     private void reserveBook() {
         try {
             int ISBN = Integer.parseInt(fieldISBN.getText());
-            Book b = Ass2.LIB.findBook(ISBN);
+            Book b = LIBRARY.findBook(ISBN);
             if (b.getReservedStatus().equals("Reserved")) {
                 output.setText("Book has been previously reserved. You will be added to a queue.\n ");
             }
@@ -44,9 +46,10 @@ class TabReserveBook extends JPanel {
     
     
     
-    public TabReserveBook(Student student) {
+    public TabReserveBook(Student student, Library lib) {
         super();
         this.student = student;
+        LIBRARY = lib;
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         

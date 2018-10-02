@@ -7,8 +7,8 @@ class Student extends User implements Serializable {
     private String degree;
     
     //constructor
-    public Student(String username, char[] password, String degree) {
-        super(username, password);
+    public Student(String username, char[] password, String degree, Library lib) {
+        super(username, password, lib);
         this.degree = degree;
     }
     
@@ -24,7 +24,7 @@ class Student extends User implements Serializable {
         return 1;
     }
     
-    public String getDetails() {
+    protected String getDetails() {
         return "\nUsername: " + username + "\nPassword: " + password + "\nDegree: " + degree + "\n";
     }
     

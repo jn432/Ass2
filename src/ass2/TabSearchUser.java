@@ -6,6 +6,8 @@ import java.awt.event.*;
 
 class TabSearchUser extends JPanel {
     
+    private final Library LIBRARY;
+    
     private JTextArea output;
     
     private JTabbedPane backPane;
@@ -15,7 +17,7 @@ class TabSearchUser extends JPanel {
     //searches for user and switches to the edit tab if one is found, also sets the details on it
     //also enable usage of edit and delete tab
     private void searchUser(String search) {
-        User u = Ass2.LIB.findUser(search);
+        User u = LIBRARY.findUser(search);
         if (u != null) {
             switch(u.getUserType()) {
                 case 1:
@@ -45,11 +47,12 @@ class TabSearchUser extends JPanel {
         }
     }
     
-    public TabSearchUser(JTabbedPane backPane, TabEditUser tabEdit, TabDeleteUser tabDelete) {
+    public TabSearchUser(JTabbedPane backPane, TabEditUser tabEdit, TabDeleteUser tabDelete, Library lib) {
         super();
         this.backPane = backPane;
         this.tabEdit = tabEdit;
         this.tabDelete = tabDelete;
+        this.LIBRARY = lib;
         
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);

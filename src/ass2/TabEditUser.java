@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 class TabEditUser extends JPanel {
     
+    private final Admin ADMIN;
+    private final Library LIBRARY;
+    
     private JTextArea output;
     
     private User editedUser;
@@ -19,7 +22,7 @@ class TabEditUser extends JPanel {
     //used to set details in tab after a user is searched for
     public void setDetails(User u) {
         editedUser = u;
-        fieldID.setText(Integer.toString(Ass2.LIB.getUserList().indexOf(u)));
+        fieldID.setText(u.getUsername());
         fieldUsername.setText(u.getUsername());
         fieldPassword.setText(Arrays.toString(u.getPassword()));
         //if user is a student
@@ -40,31 +43,36 @@ class TabEditUser extends JPanel {
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
         String degree = boxDegree.getSelectedItem().toString();
+        //check if username is empty
         if (username.equals("")) {
             output.setText("Username cannot be empty");
             return false;
         }
+        //check if password is empty
         else if (Arrays.toString(password).equals("")) {
             output.setText("Password cannot be empty");
             return false;
         }
-        else if (Ass2.LIB.findUser(username) != null) {
+        //check if username is already taken
+        else if (LIBRARY.findUser(username) != null) {
             output.setText("Username has already been taken");
             return false;
         }
-        Admin.editUser(editedUser, username, password, degree);
+        ADMIN.editUser(editedUser, username, password, degree);
         output.setText("User has been edited:");
         output.append(editedUser.getDetails());
         return true;
     }
     
-    public TabEditUser() {
+    public TabEditUser(Admin admin, Library lib) {
         super();
+        this.ADMIN = admin;
+        this.LIBRARY = lib;
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         
         //label for id
-        JLabel labelID = new JLabel("ID: ");
+        JLabel labelID = new JLabel("Old username: ");
         labelID.setFont(tabFont);
         this.add(labelID);
         
@@ -75,7 +83,7 @@ class TabEditUser extends JPanel {
         this.add(fieldID);
         
         //label for username
-        JLabel labelUser = new JLabel("Username: ");
+        JLabel labelUser = new JLabel("New Username: ");
         labelUser.setFont(tabFont);
         this.add(labelUser);
         
@@ -85,7 +93,7 @@ class TabEditUser extends JPanel {
         this.add(fieldUsername);
         
         //label for password
-        JLabel labelPass = new JLabel("Password: ");
+        JLabel labelPass = new JLabel("New Password: ");
         labelPass.setFont(tabFont);
         this.add(labelPass);
         

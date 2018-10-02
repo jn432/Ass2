@@ -6,6 +6,8 @@ import java.awt.event.*;
 
 class TabSearchBook extends JPanel {
     
+    private final Library LIBRARY;
+    
     private JTextArea output;
     private int choice = 1;
     JTabbedPane backPane;
@@ -17,7 +19,7 @@ class TabSearchBook extends JPanel {
             case 1:
                 try {
                     int ISBN = Integer.parseInt(search);
-                    Book b = Ass2.LIB.findBook(ISBN);
+                    Book b = LIBRARY.findBook(ISBN);
                     b.printDetails(output);
                     backPane.setSelectedIndex(1);
                     tabReserveBook.setDetails(b);
@@ -37,10 +39,11 @@ class TabSearchBook extends JPanel {
             
     }
     
-    public TabSearchBook(JTabbedPane backPane, TabReserveBook tabReserveBook) {
+    public TabSearchBook(JTabbedPane backPane, TabReserveBook tabReserveBook, Library lib) {
         super();
         this.backPane = backPane;
         this.tabReserveBook = tabReserveBook;
+        this.LIBRARY = lib;
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         

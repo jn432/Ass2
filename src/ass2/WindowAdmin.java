@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class WindowAdmin extends JFrame {
     
-    public WindowAdmin(Admin admin) {
+    public WindowAdmin(Admin admin, Library lib) {
         super("Admin window");
         //setting the frame
         this.setBounds(0,0,640, 480);
@@ -20,12 +20,12 @@ public class WindowAdmin extends JFrame {
         this.add(backPane);
         
         //create the tabs
-        TabCreateUser tabCreate = new TabCreateUser();
-        TabEditUser tabEdit = new TabEditUser();
-        TabDeleteUser tabDelete = new TabDeleteUser();
+        TabCreateUser tabCreate = new TabCreateUser(admin, lib);
+        TabEditUser tabEdit = new TabEditUser(admin, lib);
+        TabDeleteUser tabDelete = new TabDeleteUser(admin);
         
         //add tabs
-        backPane.addTab("Find", new TabSearchUser(backPane, tabEdit, tabDelete));
+        backPane.addTab("Find", new TabSearchUser(backPane, tabEdit, tabDelete, lib));
         backPane.addTab("Create", tabCreate);
         backPane.addTab("Edit", tabEdit);
         backPane.addTab("Delete", tabDelete);
