@@ -3,7 +3,7 @@ package ass2;
 import java.awt.Font;
 import javax.swing.*;
 
-public class WindowAdmin extends JFrame {
+class WindowAdmin extends JFrame {
     
     public WindowAdmin(Admin admin, Library lib) {
         super("Admin window");
@@ -22,17 +22,13 @@ public class WindowAdmin extends JFrame {
         //create the tabs
         TabCreateUser tabCreate = new TabCreateUser(admin, lib);
         TabEditUser tabEdit = new TabEditUser(admin, lib);
-        TabDeleteUser tabDelete = new TabDeleteUser(admin);
+        TabDeleteUser tabDelete = new TabDeleteUser(admin, lib);
         
         //add tabs
         backPane.addTab("Find", new TabSearchUser(backPane, tabEdit, tabDelete, lib));
         backPane.addTab("Create", tabCreate);
         backPane.addTab("Edit", tabEdit);
         backPane.addTab("Delete", tabDelete);
-        
-        //disable the edit and delete tabs initially
-        backPane.setEnabledAt(2, false);
-        backPane.setEnabledAt(3, false);
     }
     
 }

@@ -2,9 +2,8 @@ package ass2;
 
 import java.awt.Font;
 import javax.swing.*;
-import java.awt.event.*;
 
-public class WindowStudent extends JFrame {
+class WindowStudent extends JFrame {
     
     public WindowStudent(Student student, Library lib) {
         super("Student window");

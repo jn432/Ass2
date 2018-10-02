@@ -13,7 +13,7 @@ class TabEditUser extends JPanel {
     private JTextArea output;
     
     private User editedUser;
-    private JTextField fieldID;
+    private JComboBox boxOldUsername;
     private JTextField fieldUsername;
     private JPasswordField fieldPassword;
     private JComboBox boxDegree;
@@ -22,7 +22,7 @@ class TabEditUser extends JPanel {
     //used to set details in tab after a user is searched for
     public void setDetails(User u) {
         editedUser = u;
-        fieldID.setText(u.getUsername());
+        boxOldUsername.setSelectedItem(u.getUsername());
         fieldUsername.setText(u.getUsername());
         fieldPassword.setText(Arrays.toString(u.getPassword()));
         //if user is a student
@@ -71,18 +71,29 @@ class TabEditUser extends JPanel {
         //create text font on the tab
         Font tabFont = new Font("Tahoma", 0, 20);
         
-        //label for id
-        JLabel labelID = new JLabel("Old username: ");
-        labelID.setFont(tabFont);
-        this.add(labelID);
+        //label for old username
+        JLabel labelOldUsername = new JLabel("Old username: ");
+        labelOldUsername.setFont(tabFont);
+        this.add(labelOldUsername);
         
-        //text field for id(cannot be edited)
-        fieldID = new JTextField();
-        fieldID.setFont(tabFont);
-        fieldID.setEditable(false);
-        this.add(fieldID);
+        //create and sort an array of all users
+        Object[] userArray = LIBRARY.getUsers().keySet().toArray();
+        Arrays.sort(userArray);
         
-        //label for username
+        //combo box for all users
+        boxOldUsername = new JComboBox(userArray);
+        boxOldUsername.setFont(tabFont);
+        boxOldUsername.setEditable(false);
+        boxOldUsername.setSelectedIndex(-1);
+        boxOldUsername.addActionListener (new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                User u = LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
+                setDetails(u);
+            }
+        });
+        this.add(boxOldUsername);
+        
+        //label for new username
         JLabel labelUser = new JLabel("New Username: ");
         labelUser.setFont(tabFont);
         this.add(labelUser);
@@ -133,13 +144,13 @@ class TabEditUser extends JPanel {
         
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(labelID)
+                        .addComponent(labelOldUsername)
                         .addComponent(labelUser)
                         .addComponent(labelPass)
                         .addComponent(labelDegree)
                 )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(fieldID)
+                        .addComponent(boxOldUsername)
                         .addComponent(fieldUsername)
                         .addComponent(fieldPassword)
                         .addComponent(boxDegree)
@@ -150,8 +161,8 @@ class TabEditUser extends JPanel {
         
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelID)
-                        .addComponent(fieldID)
+                        .addComponent(labelOldUsername)
+                        .addComponent(boxOldUsername)
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(labelUser)

@@ -2,9 +2,8 @@ package ass2;
 
 import java.awt.Font;
 import javax.swing.*;
-import java.awt.event.*;
 
-public class WindowLibrarian extends JFrame {
+class WindowLibrarian extends JFrame {
     
     public WindowLibrarian(Librarian librarian, Library lib) {
         super("Librarian window");
@@ -22,6 +21,7 @@ public class WindowLibrarian extends JFrame {
         
         //create the tabs
         backPane.addTab("Create", new TabCreateBook(librarian, lib));
+        backPane.addTab("Create", new TabEditBook(librarian, lib));
         //backPane.addTab("Search", new TabSearchBook(backPane, tabReserveBook, lib));
         //backPane.addTab("Reserve", tabReserveBook);
     }
