@@ -1,6 +1,7 @@
 package ass2;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 class Student extends User implements Serializable {
     
@@ -25,7 +26,7 @@ class Student extends User implements Serializable {
     }
     
     protected String getDetails() {
-        return "\nUsername: " + username + "\nPassword: " + password + "\nDegree: " + degree + "\n";
+        return "\nUsername: " + username + "\nPassword: " + new String(password) + "\nDegree: " + degree + "\n";
     }
     
 

@@ -15,7 +15,7 @@ class Admin extends User implements Serializable {
     }
     
     protected String getDetails() {
-        return "\nUsername: " + username + "\nPassword: " + Arrays.toString(password) + "\n";
+        return "\nUsername: " + username + "\nPassword: " + new String(password) + "\n";
     }
     
     //deletes the user from the list, and also saves the changed list

@@ -17,7 +17,7 @@ class TabAdminStudent extends JPanel {
     private JComboBox boxOldUsername;
     private JTextField fieldUsername;
     private JPasswordField fieldPassword;
-    DefaultComboBoxModel model;
+    private DefaultComboBoxModel model;
     private JComboBox boxDegree;
     
     
@@ -29,9 +29,9 @@ class TabAdminStudent extends JPanel {
             fieldPassword.setText("");
         }
         else {
-            boxOldUsername.setSelectedItem(s.getUsername());
-            fieldUsername.setText(s.getUsername());
-            fieldPassword.setText(Arrays.toString(s.getPassword()));
+            boxOldUsername.setSelectedItem(s.username);
+            fieldUsername.setText(s.username);
+            fieldPassword.setText(new String(s.password));
             boxDegree.setSelectedItem(s.getDegree());
         }
     }
@@ -47,7 +47,7 @@ class TabAdminStudent extends JPanel {
             return false;
         }
         //check if password string is empty
-        else if (Arrays.toString(password).equals("")) {
+        else if (password.equals("")) {
             output.setText("Password cannot be empty");
             return false;
         }
@@ -76,12 +76,12 @@ class TabAdminStudent extends JPanel {
             return false;
         }
         //check if password is empty
-        else if (Arrays.toString(password).equals("")) {
+        else if (Arrays.toString(password).equals("[]")) {
             output.setText("Password cannot be empty");
             return false;
         }
         //check if username is already taken
-        else if (LIBRARY.findUser(username) != null) {
+        else if (LIBRARY.findUser(username) != null && LIBRARY.findUser(username) != s) {
             output.setText("Username has already been taken");
             return false;
         }

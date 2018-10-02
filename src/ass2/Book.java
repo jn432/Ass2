@@ -13,7 +13,7 @@ public class Book implements Serializable {
     private String status;
     private ArrayList<Record> reserveList;
     
-    
+    //constructor
     public Book(int isbn, String title, String author, String location) {
         this.isbn = isbn;
         this.title = title;
@@ -23,13 +23,45 @@ public class Book implements Serializable {
         this.reserveList = new ArrayList<Record>();
     }
     
+    //get methods
     public int getISBN() {
         return isbn;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public String getAuthor() {
+        return author;
+    }
+    
+    public String getLocation() {
+        return location;
     }
     
     public String getReservedStatus() {
         return status;
     }
+    //end of get methods
+    
+    //set methods
+    public void setISBN(int isbn) {
+        this.isbn = isbn;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    //end of set methods
     
     //print out all information of the book
     public void printDetails(JTextArea output) {
