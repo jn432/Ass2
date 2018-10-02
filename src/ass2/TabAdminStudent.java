@@ -67,7 +67,8 @@ class TabAdminStudent extends JPanel {
         }
     }
     
-    private boolean editStudent(Student s) {
+    private boolean editStudent() {
+        Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
         String degree = boxDegree.getSelectedItem().toString();
@@ -95,7 +96,8 @@ class TabAdminStudent extends JPanel {
     }
 
     //deleted the student
-    private void deleteStudent(Student s) {
+    private void deleteStudent() {
+        Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         if (s != null) {
             model.removeElement(s.getUsername());
             ADMIN.deleteUser(s);
@@ -170,8 +172,7 @@ class TabAdminStudent extends JPanel {
         buttonEdit.setFont(tabFont);
         buttonEdit.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
-                editStudent(s);
+                editStudent();
             }
         });
         buttonEdit.setEnabled(false);
@@ -182,8 +183,7 @@ class TabAdminStudent extends JPanel {
         buttonDelete.setFont(tabFont);
         buttonDelete.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
-                deleteStudent(s);
+                deleteStudent();
             }
         });
         buttonDelete.setEnabled(false);

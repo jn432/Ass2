@@ -64,7 +64,8 @@ class TabAdminLibrarian extends JPanel {
         }
     }
     
-    private boolean editLibrarian(Librarian l) {
+    private boolean editLibrarian() {
+        Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
         //check if username is empty
@@ -91,7 +92,8 @@ class TabAdminLibrarian extends JPanel {
     }
 
     //deleted the student
-    private void deleteLibrarian(Librarian l) {
+    private void deleteLibrarian() {
+        Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         if (l != null) {
             model.removeElement(l.getUsername());
             ADMIN.deleteUser(l);
@@ -155,8 +157,7 @@ class TabAdminLibrarian extends JPanel {
         buttonEdit.setFont(tabFont);
         buttonEdit.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
-                editLibrarian(l);
+                editLibrarian();
             }
         });
         buttonEdit.setEnabled(false);
@@ -167,8 +168,7 @@ class TabAdminLibrarian extends JPanel {
         buttonDelete.setFont(tabFont);
         buttonDelete.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
-                deleteLibrarian(l);
+                deleteLibrarian();
             }
         });
         buttonDelete.setEnabled(false);
