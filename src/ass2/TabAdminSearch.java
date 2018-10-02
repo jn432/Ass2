@@ -4,15 +4,15 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-class TabSearchUser extends JPanel {
+class TabAdminSearch extends JPanel {
     
     private final Library LIBRARY;
     
     private JTextArea output;
     
     private JTabbedPane backPane;
-    private TabEditUser tabEdit;
-    private TabDeleteUser tabDelete;
+    private TabAdminStudent tabAdminStudent;
+    private TabAdminLibrarian tabAdminLibrarian;
     
     //searches for user and switches to the edit tab if one is found, also sets the details on it
     //also enable usage of edit and delete tab
@@ -21,19 +21,11 @@ class TabSearchUser extends JPanel {
         if (u != null) {
             switch(u.getUserType()) {
                 case 1:
-                    backPane.setSelectedIndex(2);
-                    backPane.setEnabledAt(2, true);
-                    backPane.setEnabledAt(3, true);
-                    tabEdit.setDetails(u);
-                    tabDelete.setDetails(u);
+                    tabAdminStudent.setDetails((Student) u);
                     output.setText(u.getDetails());
                     break;
                 case 2:
-                    backPane.setSelectedIndex(2);
-                    backPane.setEnabledAt(2, true);
-                    backPane.setEnabledAt(3, true);
-                    tabEdit.setDetails(u);
-                    tabDelete.setDetails(u);
+                    tabAdminLibrarian.setDetails((Librarian) u);
                     output.setText(u.getDetails());
                     break;
                 case 3:
@@ -47,11 +39,11 @@ class TabSearchUser extends JPanel {
         }
     }
     
-    public TabSearchUser(JTabbedPane backPane, TabEditUser tabEdit, TabDeleteUser tabDelete, Library lib) {
+    public TabAdminSearch(JTabbedPane backPane, TabAdminStudent tabAdminStudent, TabAdminLibrarian tabAdminLibrarian, Library lib) {
         super();
         this.backPane = backPane;
-        this.tabEdit = tabEdit;
-        this.tabDelete = tabDelete;
+        this.tabAdminStudent = tabAdminStudent;
+        this.tabAdminLibrarian = tabAdminLibrarian;
         this.LIBRARY = lib;
         
         //create text font on the tab

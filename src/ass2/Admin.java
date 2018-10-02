@@ -50,9 +50,9 @@ class Admin extends User implements Serializable {
         //readd account back in map with new key
         LIBRARY.getUsers().put(username, u);
         
+        System.err.println("User edited");
         //save the file
         LIBRARY.saveLibrary();
-        System.err.println("User edited");
         return true;
     }
     
