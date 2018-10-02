@@ -1,7 +1,6 @@
 package ass2;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 class Student extends User implements Serializable {
     
