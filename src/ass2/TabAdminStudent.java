@@ -17,7 +17,6 @@ class TabAdminStudent extends JPanel {
     private JComboBox boxOldUsername;
     private JTextField fieldUsername;
     private JPasswordField fieldPassword;
-    private ArrayList<String> keys;
     DefaultComboBoxModel model;
     private JComboBox boxDegree;
     
@@ -60,7 +59,6 @@ class TabAdminStudent extends JPanel {
         else {
             //create user account and add it to user map
             ADMIN.createStudent(username, password, degree);
-            keys.add(username);
             model.addElement(username);
             output.setText("Student " + username + " has been created.");
             return true;
@@ -190,7 +188,7 @@ class TabAdminStudent extends JPanel {
         this.add(buttonDelete);
         
         //create list of users
-        keys = new ArrayList<>();
+        ArrayList<String> keys = new ArrayList<>();
         for (String s : LIBRARY.getUsers().keySet()) {
             User u = LIBRARY.findUser(s);
             if (u.getUserType() == 1) {
