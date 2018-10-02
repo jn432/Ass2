@@ -35,6 +35,9 @@ class Admin extends User implements Serializable {
             return false;
         }
         
+        //remove the user from the map, to remove the connection with old key
+        LIBRARY.getUsers().remove(u.getUsername());
+        
         //edit details of user
         u.username = username;
         u.password = password;
@@ -43,6 +46,9 @@ class Admin extends User implements Serializable {
             Student s = (Student) u;
             s.setDegree(degree);
         }
+        
+        //readd account back in map with new key
+        LIBRARY.getUsers().put(username, u);
         
         //save the file
         LIBRARY.saveLibrary();
