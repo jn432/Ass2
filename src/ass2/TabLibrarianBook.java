@@ -55,14 +55,18 @@ class TabLibrarianBook extends JPanel {
         String author = fieldAuthor.getText();
         String location = fieldLocation.getText();
         
+        if (ISBN <= 0) {
+            output.setText("ISBN must be a natural number");
+            return false;
+        }
         //check if username string is empty
-        if (title.equals("")) {
+        else if (title.equals("")) {
             output.setText("Username cannot be empty");
             return false;
         }
-        //check if password string is empty
+        //check if author string is empty
         else if (author.equals("")) {
-            output.setText("Password cannot be empty");
+            output.setText("Author cannot be empty");
             return false;
         }
         //check if ISBN has been taken
@@ -79,9 +83,10 @@ class TabLibrarianBook extends JPanel {
         }
     }
     
+    //edit details of an existing book
     private boolean editBook() {
-        int oldISBN = 0;
-        int ISBN = 0;
+        int oldISBN;
+        int ISBN;
         try {
             oldISBN = Integer.parseInt(boxOldISBN.getSelectedItem().toString());
             ISBN = Integer.parseInt(fieldISBN.getText());
@@ -94,25 +99,30 @@ class TabLibrarianBook extends JPanel {
         String title = fieldTitle.getText();
         String author = fieldAuthor.getText();
         String location = fieldLocation.getText();
+        //check if ISBN is not a natural number
+        if (ISBN <= 0) {
+            output.setText("ISBN must be a natural number");
+            return false;
+        }
         //check if username string is empty
-        if (title.equals("")) {
+        else if (title.equals("")) {
             output.setText("Username cannot be empty");
             return false;
         }
-        //check if password string is empty
+        //check if author string is empty
         else if (author.equals("")) {
-            output.setText("Password cannot be empty");
+            output.setText("Author cannot be empty");
             return false;
         }
         //check if ISBN has been taken
-        else if (LIBRARY.findBook(ISBN) != null) {
-            output.setText("Book ISBN has already been taken");
+        else if (LIBRARY.findBook(ISBN) != null && oldISBN != ISBN) {
+            output.setText("ISBN has already been taken");
             return false;
         }
         else {
             //edit the book
-            model.removeElement(oldISBN);
-            LIBRARIAN.createBook(ISBN, title, author, location);
+            model.removeElement(boxOldISBN.getSelectedItem());
+            LIBRARIAN.editBook(b, ISBN, title, author, location);
             model.addElement(ISBN);
             output.setText("Book has been edited.");
             return true;
@@ -122,7 +132,7 @@ class TabLibrarianBook extends JPanel {
     private void deleteBook() {
         Book b = LIBRARY.findBook(Integer.parseInt(boxOldISBN.getSelectedItem().toString()));
         if (b != null) {
-            model.removeElement(b.getISBN());
+            model.removeElement(boxOldISBN.getSelectedItem());
             LIBRARIAN.deleteBook(b);
             output.setText("Book has been deleted");
             
