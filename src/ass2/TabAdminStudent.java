@@ -3,7 +3,6 @@ package ass2;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -76,12 +75,12 @@ class TabAdminStudent extends JPanel {
             return false;
         }
         //check if password is empty
-        else if (Arrays.toString(password).equals("[]")) {
+        else if (password.toString().equals("")) {
             output.setText("Password cannot be empty");
             return false;
         }
         //check if username is already taken
-        else if (LIBRARY.findUser(username) != null && LIBRARY.findUser(username) != s) {
+        else if (LIBRARY.findUser(username) != null && !boxOldUsername.getSelectedItem().toString().equals(username)) {
             output.setText("Username has already been taken");
             return false;
         }
@@ -208,6 +207,7 @@ class TabAdminStudent extends JPanel {
         boxOldUsername.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
+                setDetails(s);
                 //if there is no user selected(New User selected)
                 if (s == null) {
                     buttonCreate.setEnabled(true);
@@ -216,7 +216,6 @@ class TabAdminStudent extends JPanel {
                 }
                 //if a user has been found
                 else {
-                    setDetails(s);
                     buttonCreate.setEnabled(false);
                     buttonEdit.setEnabled(true);
                     buttonDelete.setEnabled(true);

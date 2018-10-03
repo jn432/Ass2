@@ -3,7 +3,6 @@ package ass2;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ class TabAdminLibrarian extends JPanel {
         else {
             boxOldUsername.setSelectedItem(l.getUsername());
             fieldUsername.setText(l.getUsername());
-            fieldPassword.setText(Arrays.toString(l.getPassword()));
+            fieldPassword.setText(l.getPassword().toString());
         }
     }
     
@@ -44,7 +43,7 @@ class TabAdminLibrarian extends JPanel {
             return false;
         }
         //check if password string is empty
-        else if (Arrays.toString(password).equals("")) {
+        else if (password.toString().equals("")) {
             output.setText("Password cannot be empty");
             return false;
         }
@@ -72,12 +71,12 @@ class TabAdminLibrarian extends JPanel {
             return false;
         }
         //check if password is empty
-        else if (Arrays.toString(password).equals("")) {
+        else if (password.toString().equals("")) {
             output.setText("Password cannot be empty");
             return false;
         }
         //check if username is already taken
-        else if (LIBRARY.findUser(username) != null) {
+        else if (LIBRARY.findUser(username) != null && !boxOldUsername.getSelectedItem().toString().equals(username)) {
             output.setText("Username has already been taken");
             return false;
         }
