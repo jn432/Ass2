@@ -33,6 +33,7 @@ class TabAdminLibrarian extends JPanel {
         }
     }
     
+    //create a new librarian
     private boolean createLibrarian() {
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
@@ -61,6 +62,7 @@ class TabAdminLibrarian extends JPanel {
         }
     }
     
+    //edit an existing Librarian
     private boolean editLibrarian() {
         Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         String username = fieldUsername.getText();
@@ -88,7 +90,7 @@ class TabAdminLibrarian extends JPanel {
         return true;
     }
 
-    //deleted the student
+    //delete the librarian
     private void deleteLibrarian() {
         Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         if (l != null) {
@@ -193,7 +195,7 @@ class TabAdminLibrarian extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Librarian l = (Librarian) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
                 setDetails(l);
-                //if there is no user selected(New User selected)
+                //if there is no user selected(New Librarian selected)
                 if (l == null) {
                     buttonCreate.setEnabled(true);
                     buttonEdit.setEnabled(false);

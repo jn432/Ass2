@@ -35,6 +35,7 @@ class TabAdminStudent extends JPanel {
         }
     }
     
+    //create a new student
     private boolean createStudent() {
         String username = fieldUsername.getText();
         char[] password = fieldPassword.getPassword();
@@ -64,6 +65,7 @@ class TabAdminStudent extends JPanel {
         }
     }
     
+    //edit an existing student
     private boolean editStudent() {
         Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         String username = fieldUsername.getText();
@@ -92,7 +94,7 @@ class TabAdminStudent extends JPanel {
         return true;
     }
 
-    //deleted the student
+    //delete the student
     private void deleteStudent() {
         Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
         if (s != null) {
@@ -208,7 +210,7 @@ class TabAdminStudent extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Student s = (Student) LIBRARY.findUser(boxOldUsername.getSelectedItem().toString());
                 setDetails(s);
-                //if there is no user selected(New User selected)
+                //if there is no user selected(New Student selected)
                 if (s == null) {
                     buttonCreate.setEnabled(true);
                     buttonEdit.setEnabled(false);
