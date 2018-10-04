@@ -4,6 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
+import java.io.IOException;
 
 class TabLibrarianRecord extends JPanel {
     
@@ -14,13 +18,22 @@ class TabLibrarianRecord extends JPanel {
     private JTextArea output;
     
     public void generateReport() {
-        ArrayList<Record> list = new ArrayList<>();
-        for (Book b : LIBRARY.getBooks().values()) {
-            b.printDetails(output);
-            for (Record r : b.getReserveList()) {
-                list.add(r);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            String formatDateTime = LocalDateTime.now().format(formatter);
+            Formatter file = new Formatter("Record" + formatDateTime + ".txt");
+            ArrayList<Record> list = new ArrayList<>();
+            for (Book b : LIBRARY.getBooks().values()) {
+                b.printDetails(output);
+                b.generateRecord(file);
             }
+            output.append("A file of this report has been generated");
+            file.close();
         }
+        catch (IOException e) {
+            output.setText("Error in saving file: " + e);
+        }
+        
     }
     
     public TabLibrarianRecord(Librarian librarian, Library lib) {
@@ -57,8 +70,6 @@ class TabLibrarianRecord extends JPanel {
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup()
                         .addComponent(labelRecord)
-                )
-                .addGroup(layout.createParallelGroup()
                         .addComponent(buttonRun)
                         .addComponent(output)
                 )
@@ -67,6 +78,8 @@ class TabLibrarianRecord extends JPanel {
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(labelRecord)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonRun)
                 )
                 .addGroup(layout.createParallelGroup()

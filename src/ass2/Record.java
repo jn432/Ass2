@@ -3,6 +3,7 @@ package ass2;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 
 class Record implements Serializable, Comparable<Record> {
     private User reserver;
@@ -24,5 +25,12 @@ class Record implements Serializable, Comparable<Record> {
     
     public int compareTo(Record r) {
         return date.compareTo(r.date);
+    }
+    
+    public void generateRecord(Formatter file) {
+        //format the date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = date.format(formatter);
+        file.format("User: " + reserver.getUsername() + " Date reserved: " + formatDateTime + "%n");
     }
 }

@@ -72,7 +72,7 @@ class Book implements Serializable {
     
     //print out all information of the book
     public void printDetails(JTextArea output) {
-        output.append("ISBN: " + isbn + "\nTitle: " + title + "\nAuthor: " + author + "\nLocation: " + location + "\nStatus: " + status);
+        output.append("ISBN: " + isbn + "\nTitle: " + title + "\nAuthor: " + author + "\nLocation: " + location + "\nStatus: " + status + "\n");
         for (Record record : reserveList) {
             output.append(record.printRecord());
         }
@@ -89,6 +89,13 @@ class Book implements Serializable {
         Record r = new Record(student);
         reserveList.add(r);
         LIBRARY.saveLibrary();
+    }
+    
+    public void generateRecord(Formatter file) {
+        file.format("ISBN: " + isbn + "%nTitle: " + title + "%nAuthor: " + author + "%nLocation: " + location + "%nStatus: " + status + "%n");
+        for (Record record : reserveList) {
+            record.generateRecord(file);
+        }
     }
     
 }
