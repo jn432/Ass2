@@ -20,8 +20,8 @@ class WindowStudent extends JFrame {
         this.add(backPane);
         
         //create the tabs
-        TabReserveBook tabReserveBook = new TabReserveBook(student, lib);
-        backPane.addTab("Search", new TabSearchBook(backPane, tabReserveBook, lib));
+        TabStudentReserveBook tabReserveBook = new TabStudentReserveBook(student, lib);
+        backPane.addTab("Search", new TabStudentSearchBook(tabReserveBook, lib));
         backPane.addTab("Reserve", tabReserveBook);
     }
     

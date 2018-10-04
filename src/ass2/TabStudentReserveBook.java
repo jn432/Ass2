@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-class TabReserveBook extends JPanel {
+class TabStudentReserveBook extends JPanel {
     
     private Student student;
     private final Library LIBRARY;
@@ -46,7 +46,7 @@ class TabReserveBook extends JPanel {
     
     
     
-    public TabReserveBook(Student student, Library lib) {
+    public TabStudentReserveBook(Student student, Library lib) {
         super();
         this.student = student;
         LIBRARY = lib;

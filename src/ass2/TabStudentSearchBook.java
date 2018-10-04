@@ -4,44 +4,31 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-class TabSearchBook extends JPanel {
+class TabStudentSearchBook extends JPanel {
     
     private final Library LIBRARY;
     
     private JTextArea output;
-    private int choice = 1;
-    JTabbedPane backPane;
-    TabReserveBook tabReserveBook;
+    TabStudentReserveBook tabReserveBook;
     
     private void searchBook(String search) {
-        switch (choice) {
-            //search by ISBN
-            case 1:
-                try {
-                    int ISBN = Integer.parseInt(search);
-                    Book b = LIBRARY.findBook(ISBN);
-                    b.printDetails(output);
-                    backPane.setSelectedIndex(1);
-                    tabReserveBook.setDetails(b);
-                }
-                catch (NumberFormatException e) {
-                    output.setText("You must enter an int to search by ISBN");
-                }
-                catch (NullPointerException e) {
-                    output.setText("Book not found");
-                }
-                break;
-            //search by author
-            case 2:
-            case 3:
+        try {
+            int ISBN = Integer.parseInt(search);
+            Book b = LIBRARY.findBook(ISBN);
+            b.printDetails(output);
+            tabReserveBook.setDetails(b);
         }
-
+        catch (NumberFormatException e) {
+            output.setText("You must enter an int to search by ISBN");
+        }
+        catch (NullPointerException e) {
+            output.setText("Book not found");
+        }
             
     }
     
-    public TabSearchBook(JTabbedPane backPane, TabReserveBook tabReserveBook, Library lib) {
+    public TabStudentSearchBook(TabStudentReserveBook tabReserveBook, Library lib) {
         super();
-        this.backPane = backPane;
         this.tabReserveBook = tabReserveBook;
         this.LIBRARY = lib;
         //create text font on the tab
@@ -56,28 +43,6 @@ class TabSearchBook extends JPanel {
         JTextField fieldSearch = new JTextField();
         fieldSearch.setFont(tabFont);
         this.add(fieldSearch);
-        
-        //create radio button group
-        ButtonGroup radioGroup = new ButtonGroup();
-        
-        //create radio buttons
-        JRadioButton radioISBN = new JRadioButton("ISBN", true);
-        radioISBN.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent evt) {
-                choice = 1;
-            }
-        });
-        this.add(radioISBN);
-        radioGroup.add(radioISBN);
-                
-        JRadioButton radioAuthor = new JRadioButton("Author", false);
-        radioAuthor.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent evt) {
-                choice = 2;
-            }
-        });
-        this.add(radioAuthor);
-        radioGroup.add(radioAuthor);
         
         //create some output fields
         output = new JTextArea();
@@ -106,14 +71,6 @@ class TabSearchBook extends JPanel {
                 )
                 .addGroup(layout.createParallelGroup()
                         .addComponent(fieldSearch)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup()
-                                        .addComponent(radioISBN)
-                                )
-                                .addGroup(layout.createParallelGroup()
-                                        .addComponent(radioAuthor)
-                                )
-                        )
                         .addComponent(buttonSearch)
                         .addComponent(output)
                 )
@@ -123,10 +80,6 @@ class TabSearchBook extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(labelSearch)
                         .addComponent(fieldSearch)
-                )
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(radioISBN)
-                        .addComponent(radioAuthor)
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonSearch)

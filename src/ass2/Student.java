@@ -1,15 +1,18 @@
 package ass2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 class Student extends User implements Serializable {
     
     private String degree;
+    private ArrayList<Record> reserveList;
     
     //constructor
     public Student(String username, char[] password, String degree, Library lib) {
         super(username, password, lib);
         this.degree = degree;
+        reserveList = new ArrayList<>();
     }
     
     public String getDegree() {

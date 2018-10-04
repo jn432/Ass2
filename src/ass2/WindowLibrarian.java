@@ -21,7 +21,8 @@ class WindowLibrarian extends JFrame {
         
         //create the tabs
         backPane.addTab("Book", new TabLibrarianBook(librarian, lib));
-        backPane.addTab("Record", new TabLibrarianRecord(librarian, lib));
+        backPane.addTab("All Records", new TabLibrarianRecord(librarian, lib));
+        backPane.addTab("User Records", new TabLibrarianUserRecord(librarian, lib));
     }
     
 }
