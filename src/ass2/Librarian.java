@@ -29,7 +29,7 @@ class Librarian extends User implements Serializable {
         //if there is no book with that ISBN
         if (b == null) {
             //create the book and put it in the map
-            b = new Book(ISBN, title, author, location);
+            b = new Book(LIBRARY, ISBN, title, author, location);
             LIBRARY.getBooks().put(ISBN, b);
             
             //save the library file

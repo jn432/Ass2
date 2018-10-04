@@ -24,10 +24,10 @@ class TabReserveBook extends JPanel {
             int ISBN = Integer.parseInt(fieldISBN.getText());
             Book b = LIBRARY.findBook(ISBN);
             if (b.getReservedStatus().equals("Reserved")) {
-                output.setText("Book has been previously reserved. You will be added to a queue.\n ");
+                output.setText("Book is currently reserved. You will be added to a queue.\n ");
             }
             else if (b.getReservedStatus().equals("Borrowed")) {
-                output.setText("Book has been borrowed. You will be added to a queue.\n ");
+                output.setText("Book is currently borrowed. You will be added to a queue.\n ");
             }
             else {
                 output.setText("Book has been reserved\n");

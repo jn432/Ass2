@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 import javax.swing.*;
 
-public class Book implements Serializable {
+class Book implements Serializable {
+    
+    private Library LIBRARY;
     
     private int isbn;
     private String title;
@@ -14,13 +16,14 @@ public class Book implements Serializable {
     private ArrayList<Record> reserveList;
     
     //constructor
-    public Book(int isbn, String title, String author, String location) {
+    public Book(Library library, int isbn, String title, String author, String location) {
+        LIBRARY = library;
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.location = location;
         this.status = "Available";
-        this.reserveList = new ArrayList<Record>();
+        this.reserveList = new ArrayList<>();
     }
     
     //get methods
@@ -42,6 +45,10 @@ public class Book implements Serializable {
     
     public String getReservedStatus() {
         return status;
+    }
+    
+    public ArrayList<Record> getReserveList() {
+        return reserveList;
     }
     //end of get methods
     
@@ -81,7 +88,7 @@ public class Book implements Serializable {
         }
         Record r = new Record(student);
         reserveList.add(r);
-        Collections.sort(reserveList);
+        LIBRARY.saveLibrary();
     }
     
 }
