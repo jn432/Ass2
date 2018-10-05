@@ -14,51 +14,42 @@ class TabStudentSearchBookAdvanced extends JPanel {
     private int choice = 1;
     
     private void searchBookTitle(String search) {
-        try {
-            ArrayList<Book> books = LIBRARY.getBooksByTitle(search);
-            if (books.size() > 0) {
-                for (Book b : books) {
-                    b.printDetails(output);
-                }
+        ArrayList<Book> books = LIBRARY.getBooksByTitle(search);
+        if (books.size() > 0) {
+            output.setText(books.size() + " books found:\n");
+            for (Book b : books) {
+                b.printDetails(output);
             }
-            else {
-                output.setText("No books found");
-            }
-            
         }
-        catch (NullPointerException e) {
-            output.setText("Book not found");
+        else {
+            output.setText("No books found");
         }
     }
     
     private void searchBookAuthor(String search) {
-        try {
-            int ISBN = Integer.parseInt(search);
-            Book b = LIBRARY.findBook(ISBN);
-            b.printDetails(output);
+        ArrayList<Book> books = LIBRARY.getBooksByAuthor(search);
+        if (books.size() > 0) {
+            output.setText(books.size() + " books found:\n");
+            for (Book b : books) {
+                b.printDetails(output);
+            }
         }
-        catch (NumberFormatException e) {
-            output.setText("You must enter an int to search by ISBN");
+        else {
+            output.setText("No books found");
         }
-        catch (NullPointerException e) {
-            output.setText("Book not found");
-        }
-            
     }
     
     private void searchBookKeyword(String search) {
-        try {
-            int ISBN = Integer.parseInt(search);
-            Book b = LIBRARY.findBook(ISBN);
-            b.printDetails(output);
+        ArrayList<Book> books = LIBRARY.getBooksByKeyword(search);
+        if (books.size() > 0) {
+            output.setText(books.size() + " books found:\n");
+            for (Book b : books) {
+                b.printDetails(output);
+            }
         }
-        catch (NumberFormatException e) {
-            output.setText("You must enter an int to search by ISBN");
+        else {
+            output.setText("No books found");
         }
-        catch (NullPointerException e) {
-            output.setText("Book not found");
-        }
-            
     }
     
     public TabStudentSearchBookAdvanced(Library lib) {

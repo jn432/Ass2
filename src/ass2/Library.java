@@ -64,11 +64,11 @@ class Library implements Serializable {
     
     //search for books by keyword
     public ArrayList<Book> getBooksByKeyword(String search) {
-        HashSet<String> words = new HashSet(Arrays.asList(search.split(search.toLowerCase())));
+        HashSet<String> wordSet = new HashSet(Arrays.asList(search.toLowerCase().split(" ")));
         ArrayList<Book> books = new ArrayList<>();
         for (Book b : BOOKMAP.values()) {
-            for (String word : words) {
-                if (b.getAuthor().toLowerCase().contains(word)) {
+            for (String word : wordSet) {
+                if (b.getAuthor().toLowerCase().contains(word) || b.getTitle().toLowerCase().contains(word)) {
                     books.add(b);
                     break;
                 }
