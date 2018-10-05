@@ -37,6 +37,9 @@ class WindowLogin extends JFrame {
                         break;
                 }
             }
+            else {
+                output.setText("Invalid username/password combination");
+            }
             
         }
         //user not found or password is incorrect
@@ -62,7 +65,7 @@ class WindowLogin extends JFrame {
         Font textFont = new Font("Tahoma", 0, 24);
         
         //create output text field
-        JLabel labelOutput = new JLabel("output");
+        JLabel labelOutput = new JLabel("");
         labelOutput.setFont(textFont);
         loginPanel.add(labelOutput);
         
