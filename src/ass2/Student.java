@@ -27,9 +27,22 @@ class Student extends User implements Serializable {
         return 1;
     }
     
+    public ArrayList<Record> getRecords() {
+        return reserveList;
+    }
+    
     protected String getDetails() {
         return "\nUsername: " + username + "\nPassword: " + new String(password) + "\nDegree: " + degree + "\n";
     }
     
+    public void reserveBook(Book b) {
+        if (b.getReservedStatus().equals("Available")) {
+            b.setReservedStatus("Reserved");
+        }
+        Record r = new Record(this, b);
+        reserveList.add(r);
+        b.getReserveList().add(r);
+        LIBRARY.saveLibrary();
+    }
 
 }

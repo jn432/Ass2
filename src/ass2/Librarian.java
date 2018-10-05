@@ -19,7 +19,7 @@ class Librarian extends User implements Serializable {
     
     public void checkOutBook(Student s, int ISBN) {
         Book b = LIBRARY.findBook(ISBN);
-        b.borrowBook(s);
+        //b.borrowBook(s);
     }
     
     public Book createBook(int ISBN, String title, String author, String location) {

@@ -32,7 +32,7 @@ class TabStudentReserveBook extends JPanel {
             else {
                 output.setText("Book has been reserved\n");
             }
-            b.reserveBook(student);
+            student.reserveBook(b);
             b.printDetails(output);
         }
         catch (NumberFormatException e) {

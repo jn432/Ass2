@@ -6,7 +6,7 @@ import javax.swing.*;
 
 class Book implements Serializable {
     
-    private Library LIBRARY;
+    private final Library LIBRARY;
     
     private int isbn;
     private String title;
@@ -68,6 +68,10 @@ class Book implements Serializable {
     public void setLocation(String location) {
         this.location = location;
     }
+    
+    public void setReservedStatus(String status) {
+        this.status = status;
+    }
     //end of set methods
     
     //print out all information of the book
@@ -76,19 +80,6 @@ class Book implements Serializable {
         for (Record record : reserveList) {
             output.append(record.printRecord());
         }
-    }
-    
-    public void borrowBook(Student s) {
-        status = "Borrowed";
-    }
-    
-    public void reserveBook(Student student) {
-        if (status.equals("Available")) {
-            status = "Reserved";
-        }
-        Record r = new Record(student);
-        reserveList.add(r);
-        LIBRARY.saveLibrary();
     }
     
     public void generateRecord(Formatter file) {
