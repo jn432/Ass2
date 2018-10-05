@@ -27,6 +27,7 @@ class WindowAdmin extends JFrame {
         backPane.addTab("Find", new TabAdminSearch(backPane, tabStu, tabLib, lib));
         backPane.addTab("Student", tabStu);
         backPane.addTab("Librarian", tabLib);
+        backPane.addTab("Logout", new TabLogout(this, lib));
     }
     
 }

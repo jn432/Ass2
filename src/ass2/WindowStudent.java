@@ -24,6 +24,7 @@ class WindowStudent extends JFrame {
         backPane.addTab("Search", new TabStudentSearchBook(tabReserveBook, lib));
         backPane.addTab("Reserve", tabReserveBook);
         backPane.addTab("Search Advanced", new TabStudentSearchBookAdvanced(lib));
+        backPane.addTab("Logout", new TabLogout(this, lib));
     }
     
 }
