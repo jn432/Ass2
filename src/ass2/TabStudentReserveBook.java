@@ -19,10 +19,14 @@ class TabStudentReserveBook extends JPanel {
     }
     
     //reserves the book if available, add to queue if borrowed or reserved
-    private void reserveBook() {
+    private boolean reserveBook() {
         try {
             int ISBN = Integer.parseInt(fieldISBN.getText());
             Book b = LIBRARY.findBook(ISBN);
+            if (!student.reserveBook(b)) {
+                output.setText("You have already reserved this book");
+                return false;
+            }
             if (b.getReservedStatus().equals("Reserved")) {
                 output.setText("Book is currently reserved. You will be added to a queue.\n ");
             }
@@ -32,8 +36,8 @@ class TabStudentReserveBook extends JPanel {
             else {
                 output.setText("Book has been reserved\n");
             }
-            student.reserveBook(b);
             b.printDetails(output);
+            return true;
         }
         catch (NumberFormatException e) {
             output.setText("You must enter an int to reserve a book\n");
@@ -41,7 +45,7 @@ class TabStudentReserveBook extends JPanel {
         catch (NullPointerException e) {
             output.setText("Book not found\n");
         }
-            
+        return false;
     }
     
     

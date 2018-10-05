@@ -17,6 +17,13 @@ class Record implements Serializable, Comparable<Record> {
         date = LocalDateTime.now();
     }
     
+    public boolean previouslyReserved(User u, Book b) {
+        if (reserver == u && book == b) {
+            return true;
+        }
+        return false;
+    }
+    
     public String printRecord() {
         //format the date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

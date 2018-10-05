@@ -1,8 +1,8 @@
 package ass2;
 
-import java.util.HashMap;
 import java.io.*;
 import java.nio.file.*;
+import java.util.*;
 
 class Library implements Serializable {
     
@@ -10,6 +10,15 @@ class Library implements Serializable {
     
     private final HashMap<Integer, Book> BOOKMAP;
     private final HashMap<String, User> USERMAP;
+    
+    //create library on initializatoin
+    public Library(String libraryFile) {
+        //set the file path
+        LIBRARYFILE = libraryFile;
+        //create the hashmaps for users and books
+        BOOKMAP = new HashMap<>();
+        USERMAP = new HashMap<>();
+    }
     
     //get methods
     public HashMap<Integer, Book> getBooks() {
@@ -31,13 +40,41 @@ class Library implements Serializable {
         return BOOKMAP.get(ISBN);
     }
     
-    //load or create library on initializatoin
-    public Library(String libraryFile) {
-        //set the file path
-        LIBRARYFILE = libraryFile;
-        //create the hashmaps for users and books
-        BOOKMAP = new HashMap<>();
-        USERMAP = new HashMap<>();
+    //search for books by Title
+    public ArrayList<Book> getBooksByTitle(String search) {
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book b : BOOKMAP.values()) {
+            if (b.getTitle().toLowerCase().equals(search.toLowerCase())) {
+                books.add(b);
+            }
+        }
+        return books;
+    }
+    
+    //search for books by Author
+    public ArrayList<Book> getBooksByAuthor(String search) {
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book b : BOOKMAP.values()) {
+            if (b.getAuthor().toLowerCase().equals(search.toLowerCase())) {
+                books.add(b);
+            }
+        }
+        return books;
+    }
+    
+    //search for books by keyword
+    public ArrayList<Book> getBooksByKeyword(String search) {
+        HashSet<String> words = new HashSet(Arrays.asList(search.split(search.toLowerCase())));
+        ArrayList<Book> books = new ArrayList<>();
+        for (Book b : BOOKMAP.values()) {
+            for (String word : words) {
+                if (b.getAuthor().toLowerCase().contains(word)) {
+                    books.add(b);
+                    break;
+                }
+            }
+        }
+        return books;
     }
     
     //save the library after an update

@@ -35,7 +35,13 @@ class Student extends User implements Serializable {
         return "\nUsername: " + username + "\nPassword: " + new String(password) + "\nDegree: " + degree + "\n";
     }
     
-    public void reserveBook(Book b) {
+    public boolean reserveBook(Book b) {
+        for (Record r : reserveList) {
+            if (r.previouslyReserved(this, b)) {
+                System.err.println("Person has previously borrowed this book");
+                return false;
+            }
+        }
         if (b.getReservedStatus().equals("Available")) {
             b.setReservedStatus("Reserved");
         }
@@ -43,6 +49,7 @@ class Student extends User implements Serializable {
         reserveList.add(r);
         b.getReserveList().add(r);
         LIBRARY.saveLibrary();
+        return true;
     }
 
 }
