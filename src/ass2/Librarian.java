@@ -64,10 +64,46 @@ class Librarian extends User implements Serializable {
         return true;
     }
     
-        
+    //deletes the book 
     public void deleteBook(Book b) {
+        //delete all records
+        for (Record r : b.getReserveList()) {
+            //remove all reserve from students
+            Student s = r.getStudent();
+            s.getRecords().remove(r);
+        }
         LIBRARY.getBooks().remove(b.getISBN());
         System.err.println("Book deleted");
         LIBRARY.saveLibrary();
+    }
+    
+    //librarian checks out a book for a student
+    public boolean borrowBook(Student s, Book b) {
+        String status = b.getReservedStatus();
+        if (status.equals("Available")) {
+            b.setReservedStatus("Borrowed");
+            LIBRARY.saveLibrary();
+            return true;
+        }
+        else if (status.equals("Reserved") && b.getReserveList().get(0).getStudent() == s) {
+            b.setReservedStatus("Borrowed");
+            b.getReserveList().remove(0);
+            s.getRecords().remove(0);
+            LIBRARY.saveLibrary();
+            return true;
+        }
+        return false;
+    }
+    
+    //a book is returned
+    public boolean returnBook(Book b) {
+        if (b.getReserveList().size() > 0) {
+            b.setReservedStatus("Reserved");
+            LIBRARY.saveLibrary();
+            return false;
+        }
+        b.setReservedStatus("Available");
+        LIBRARY.saveLibrary();
+        return true;
     }
 }

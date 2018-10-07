@@ -17,6 +17,14 @@ class Record implements Serializable, Comparable<Record> {
         date = LocalDateTime.now();
     }
     
+    public Student getStudent() {
+        return reserver;
+    }
+    
+    public Book getBook() {
+        return book;
+    }
+    
     public boolean previouslyReserved(Student s, Book b) {
         if (reserver == s && book == b) {
             return true;

@@ -19,6 +19,17 @@ class Admin extends User implements Serializable {
     
     //deletes the user from the list, and also saves the changed list
     public void deleteUser(User u) {
+        //if user is a student, remove reserve on all books
+        if (u.getUserType() == 1) {
+            Student s = (Student) u;
+            for (Record r : s.getRecords()) {
+                Book b = r.getBook();
+                if (b.getReserveList().size() == 1 && b.getReserveList().get(0).getStudent() == s) {
+                    b.setReservedStatus("Available");
+                }
+                b.getReserveList().remove(r);
+            }
+        }
         LIBRARY.getUsers().remove(u.username);
         System.err.println("User deleted");
         LIBRARY.saveLibrary();

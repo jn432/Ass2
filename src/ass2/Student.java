@@ -45,9 +45,9 @@ class Student extends User implements Serializable {
         if (b.getReservedStatus().equals("Available")) {
             b.setReservedStatus("Reserved");
         }
-        Record r = new Record(this, b);
-        reserveList.add(r);
-        b.getReserveList().add(r);
+        Record record = new Record(this, b);
+        reserveList.add(record);
+        b.getReserveList().add(record);
         LIBRARY.saveLibrary();
         return true;
     }
