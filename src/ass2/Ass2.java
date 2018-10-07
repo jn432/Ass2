@@ -24,14 +24,14 @@ public class Ass2 {
         //try to create student accounts
         Student s1 = (Student) lib.findUser("student");
         if (s1 == null) {
-            admin.createStudent("student","pass1".toCharArray(),"Computer Science");
+            s1 = admin.createStudent("student","pass1".toCharArray(),"Computer Science");
         }
         Student s2 = (Student) lib.findUser("student2");
-        if (s1 == null) {
+        if (s2 == null) {
             s2 = admin.createStudent("student2","pass2".toCharArray(),"Mathematics");
         }
         Student s3 = (Student) lib.findUser("student3");
-        if (s1 == null) {
+        if (s3 == null) {
             s3 = admin.createStudent("student3","pass3".toCharArray(),"Chemistry");
         }
         
@@ -45,6 +45,7 @@ public class Ass2 {
         Book b1 = lib.findBook(1);
         if (b1 == null) {
             b1 = l.createBook(1, "Programming for idiots", "Mark Sifer", "Level 1");
+            
         }
         Book b2 = lib.findBook(2);
         if (b2 == null) {
