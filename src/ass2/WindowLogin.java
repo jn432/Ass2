@@ -44,7 +44,7 @@ class WindowLogin extends JFrame {
         }
         //user not found or password is incorrect
         else {
-            output.setText("Username or password is incorrect");
+            output.setText("Invalid username/password combination");
         }
     }
 

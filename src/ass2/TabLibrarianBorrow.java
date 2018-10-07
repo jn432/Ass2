@@ -49,12 +49,17 @@ class TabLibrarianBorrow extends JPanel {
         try {
             int ISBN = Integer.parseInt(fieldISBN.getText());
             Book b = LIBRARY.findBook(ISBN);
-            boolean returned = LIBRARIAN.returnBook(b);
-            if (returned) {
-                output.setText("Book is now available, return to shelf");
+            if (b.getReservedStatus().equals("Borrowed")) {
+                boolean returned = LIBRARIAN.returnBook(b);
+                if (returned) {
+                    output.setText("Book is now available, return to shelf");
+                }
+                else {
+                    output.setText("Book is still reserved by someone else, please hold the book");
+                }
             }
             else {
-                output.setText("Book is still reserved by someone else, please hold the book");
+                output.setText("ERROR: Book is not borrowed");
             }
         }
         catch (InputMismatchException e) {
