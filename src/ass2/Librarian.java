@@ -17,11 +17,6 @@ class Librarian extends User implements Serializable {
         return "\nUsername: " + username + "\nPassword: " + new String(password) + "\n";
     }
     
-    public void checkOutBook(Student s, int ISBN) {
-        Book b = LIBRARY.findBook(ISBN);
-        //b.borrowBook(s);
-    }
-    
     public Book createBook(int ISBN, String title, String author, String location) {
         //look for a book with that ISBN
         Book b = LIBRARY.findBook(ISBN);

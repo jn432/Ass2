@@ -6,19 +6,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
 
 class Record implements Serializable, Comparable<Record> {
-    private User reserver;
+    private Student reserver;
     private Book book;
     private LocalDateTime date;
     
     //constructor for a record
-    public Record(User reserver, Book book) {
+    public Record(Student reserver, Book book) {
         this.reserver = reserver;
         this.book = book;
         date = LocalDateTime.now();
     }
     
-    public boolean previouslyReserved(User u, Book b) {
-        if (reserver == u && book == b) {
+    public boolean previouslyReserved(Student s, Book b) {
+        if (reserver == s && book == b) {
             return true;
         }
         return false;

@@ -17,7 +17,7 @@ class TabLibrarianRecord extends JPanel {
     //set it this way to call their data easier
     private JTextArea output;
     
-    public void generateReport() {
+    private void generateReport() {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             String formatDateTime = LocalDateTime.now().format(formatter);

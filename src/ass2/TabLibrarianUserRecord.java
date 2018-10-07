@@ -18,7 +18,7 @@ class TabLibrarianUserRecord extends JPanel {
     //set it this way to call their data easier
     private JTextArea output;
     
-    public void generateUserReport(String username) {
+    private void generateUserReport(String username) {
         Student s = (Student) LIBRARY.findUser(username);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
